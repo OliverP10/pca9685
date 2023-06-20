@@ -4,7 +4,7 @@ from adafruit_pca9685 import PCA9685
 from board import SCL, SDA
 import busio
 
-pca = None
+pca: PCA9685 = None
 
 # Setup the PCA9685
 def setup_pca():
@@ -12,6 +12,7 @@ def setup_pca():
     i2c_bus = busio.I2C(SCL, SDA)
     pca = PCA9685(i2c_bus)
     pca.frequency = 60
+    rospy.loginfo("PCA9685 Setup Complete")
 
 # Set the PWM channels to the values in the Int32MultiArray
 # The Int32MultiArray should have 16 values
@@ -25,6 +26,7 @@ def set_pwm(data):
     rospy.loginfo("Set pwm: %s", channels)
         
 def pwm_subscriber():
+    rospy.loginfo("Starting PWM Subscriber")
     rospy.init_node("pwm_control_node", anonymous=True)
     rospy.Subscriber("pwm_control_topic", Int32MultiArray, set_pwm)
     rospy.spin()
