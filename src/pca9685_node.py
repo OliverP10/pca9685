@@ -18,7 +18,7 @@ def setup_pca():
 # The Int32MultiArray should have 16 values
 # Each value should be between 0 and 65535
 # Values of -1 are kept the same as previous values
-def set_pwm(data):
+def set_pwm(data: Int32MultiArray):
     channels = data.data
     for i in range(0, 16):
         if(channels[i] != -1):
